@@ -9,6 +9,56 @@
 
 </head>
 <body>
-상세보기
+<div class="contianer">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2>영화정보 등록</h2>
+                    <!--Controller에 multipart 선언시 전송에서 multipart 지원-->
+                    <form th:action="@{/register}" method="post" enctype="multipart/form-data">
+                        <!--DTO를 참고해서-->
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <!--Controller에서 전달받은 변수확인-->
+                                <!--model.addAttribut("movieDTO",)-->
+                                <td style="width:30%"><!--영화 포스터-->
+                                    <td style="width: 20%"> <!--포스터가 존재하는 경우 / 존재하지 않는 경우-->
+                                        <th:block th:if="${data.poster}==null"> <!--그림파일이 없으면 출력-->
+                                            <img src="images/no_image.jpg" width="200px" height="150">
+                                        </th:block>
+                                        <th:block th:unless="${data.poster}==null"> <!--그림파일이 존재하면 출력-->
+                                            <img th:src="@{/upload/}+${data.poster}" width="150px" height="200">
+                                        </th:block>
+                                    </td>
+                                </td>
+                                <td style="width:70%"><!--영화 정보-->
+                                    <h3 class="border py-2" th:text="${movieDTO.name}">범죄도시3</h3>
+                                    <p> 주연배우 : [[${movieDTO.actor}]]</p>
+                                    <p class="mb-3"> 영화감독 : [[${movieDTO.director}]]</p>
+                                    <p class="mb-3"> 개봉일 :<span th:text="${movieDTO.opendate}"> 2024-11-05</span></p>
+                                    <p> 장르 : <span th:text="${movieDTO.genre}">액션</span></p><!--태그추가로 복잡해진다-->
+                                    <p> 제작국가 : [[${movieDTO.nation}]]</p><!--태그는 단순한데, 전체적인 구성확인 불가능-->
+                                    <p> 영화소개</p>
+                                    <div>
+                                        <textarea rows="5" readonly></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <div></div>
+    </div>
+</div>
 </body>
 </html>
